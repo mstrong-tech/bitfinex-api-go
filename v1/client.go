@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/bitfinexcom/bitfinex-api-go/utils"
 )
@@ -156,8 +157,15 @@ func (c *Client) Auth(key string, secret string) *Client {
 	return c
 }
 
+var timeoutHttpClient = &http.Client{
+	Transport: &http.Transport{
+		MaxIdleConnsPerHost: 10,
+	},
+	Timeout: time.Second * 3,
+}
+
 var httpDo = func(req *http.Request) (*http.Response, error) {
-	return http.DefaultClient.Do(req)
+	return timeoutHttpClient.Do(req)
 }
 
 // Do executes API request created by NewRequest method or custom *http.Request.
