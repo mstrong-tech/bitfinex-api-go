@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"time"
-
 	"github.com/bitfinexcom/bitfinex-api-go/v2"
 	"github.com/bitfinexcom/bitfinex-api-go/v2/websocket"
 )
